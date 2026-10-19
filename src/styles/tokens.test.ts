@@ -8,7 +8,7 @@ const shellSource = resolve(here, '..');
 const entrypoint = resolve(here, 'tokens.css');
 const canonicalSource = resolve(
   here,
-  '../../../design-software-docs/12-ux-ui/mockup-ddd/mockups/app/assets/tokens.css',
+  '../../../design-software-design-system/spec/tokens.css',
 );
 
 const read = (path: string): string => readFileSync(path, 'utf8');

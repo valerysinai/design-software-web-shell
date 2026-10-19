@@ -6,7 +6,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const shellRoot = resolve(here, '..');
 const sourceTokens = resolve(
   shellRoot,
-  '../design-software-docs/12-ux-ui/mockup-ddd/mockups/app/assets/tokens.css',
+  '../design-software-design-system/spec/tokens.css',
 );
 const entrypoint = resolve(shellRoot, 'src/styles/tokens.css');
 const sourceRoot = resolve(shellRoot, 'src');

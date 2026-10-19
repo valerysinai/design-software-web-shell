@@ -8,6 +8,8 @@ import { RemoteIndex } from '../components/RemoteIndex/RemoteIndex';
 export interface RemoteRoutesProps {
   registry: RemoteRegistry;
   manifestSource?: string;
+  permissions?: readonly string[];
+  getAccessToken?: () => string | null;
 }
 
 interface ShellHttpRequest {
@@ -83,7 +85,7 @@ function getRemoteProps(definition: (typeof REMOTE_DEFINITIONS)[number]): Record
  * Cuando el ambiente no declara URLs en `remotes.<env>.json`, los dominios no montan y
  * se muestra `RemoteUnavailable` en vez de una pantalla vacía.
  */
-export const RemoteRoutes = ({ registry, manifestSource }: RemoteRoutesProps) => {
+export const RemoteRoutes = ({ registry, manifestSource, permissions = [], getAccessToken }: RemoteRoutesProps) => {
   const { pathname } = useLocation();
 
   return (
@@ -111,7 +113,11 @@ export const RemoteRoutes = ({ registry, manifestSource }: RemoteRoutesProps) =>
             path={`${definition.basePath}/*`}
             element={
               <RemoteBoundary domain={definition.domain} resetKey={definition.basePath}>
-                <Remote {...getRemoteProps(definition)} />
+                <Remote {...getRemoteProps(definition)}
+                  {...(definition.domain === 'reference-data' ? {
+                    permissions: permissions.map((feature) => feature.split(':')[0]),
+                    getAccessToken,
+                  } : {})} />
               </RemoteBoundary>
             }
           />

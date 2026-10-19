@@ -1,4 +1,4 @@
-export const ENVIRONMENTS = ['develop', 'qa', 'staging', 'main'] as const;
+export const ENVIRONMENTS = ['develop', 'qa', 'staging', 'main', 'reference'] as const;
 export type AppEnvironment = (typeof ENVIRONMENTS)[number];
 
 export const ENVIRONMENT_PREFIX = 'remotes.';

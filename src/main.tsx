@@ -20,6 +20,7 @@ const authClient = new AuthClient({
   baseUrl: config.gatewayBaseUrl,
   tokenProvider: {
     getAccessToken: () => sessionStorage.getItem('sena.access_token'),
+    setAccessToken: (token) => sessionStorage.setItem('sena.access_token', token),
     clear: () => sessionStorage.removeItem('sena.access_token'),
   },
 });
@@ -63,6 +64,7 @@ const start = async (): Promise<void> => {
     <StrictMode>
       <BrowserRouter>
         <ShellRoot
+          getAccessToken={() => sessionStorage.getItem('sena.access_token')}
           dataSource={dataSource}
           remoteRegistry={remoteRegistry}
           notificationDataSource={notificationDataSource}
