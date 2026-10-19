@@ -1,0 +1,11 @@
+{
+  "iamMfe": "http://localhost:5101/remoteEntry.js",
+  "schedulingMfe": "http://localhost:5102/remoteEntry.js",
+  "academicManagementMfe": "http://localhost:5103/remoteEntry.js",
+  "trainingEnvironmentMfe": "http://localhost:5104/remoteEntry.js",
+  "referenceDataMfe": "http://localhost:5105/remoteEntry.js",
+  "actorsMfe": "http://localhost:5106/remoteEntry.js",
+  "documentMfe": "http://localhost:5107/remoteEntry.js",
+  "monitoringMfe": "http://localhost:5108/remoteEntry.js",
+  "auditMfe": "http://localhost:5109/remoteEntry.js"
+}

@@ -1,0 +1,49 @@
+{
+  "name": "web-shell",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Host web del frontend federado SENA.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "typecheck:e2e": "tsc -p tsconfig.e2e.json --noEmit",
+    "test": "vitest run",
+    "test:smoke": "vitest run --dir smoke",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "verify:tokens": "node scripts/verify-hu005-tokens.mjs",
+    "check:tokens": "node ../design-software-design-system/scripts/check-consumer-tokens.mjs --consumer web-shell",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@module-federation/runtime": "^2.9.2",
+    "@sena/design-system": "file:../design-software-design-system",
+    "@sena/frontend-platform": "file:../design-software-frontend-platform",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@module-federation/vite": "^1.23.0",
+    "@playwright/test": "^1.64.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.7.2",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
+    "@vitejs/plugin-react": "^5.2.0",
+    "eslint": "^9.36.0",
+    "eslint-plugin-react-hooks": "^6.1.1",
+    "globals": "^16.4.0",
+    "jsdom": "^30.1.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.71.0",
+    "vite": "^7.3.7",
+    "vitest": "^5.0.2"
+  }
+}

@@ -1,0 +1,7 @@
+/**
+ * Punto de entrada de tokens del shell — HU-SHELL-005.
+ *
+ * El shell no declara, alias ni redefine design tokens. Todos los valores salen
+ * de `@sena/design-system`, sincronizado desde la fuente UX ratificada.
+ */
+@import '@sena/design-system/tokens.css';

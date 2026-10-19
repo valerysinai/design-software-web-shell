@@ -1,0 +1,39 @@
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--font-size-lg);
+  height: var(--font-size-lg);
+  padding: 0 5px;
+  border-radius: var(--radius-lg);
+  background: var(--color-danger);
+  color: var(--color-surface);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.trigger {
+  position: relative;
+}
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--color-surface-muted);
+}
