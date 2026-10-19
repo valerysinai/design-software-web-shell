@@ -4,5 +4,5 @@
     "noEmit": true,
     "types": ["node", "vitest/globals", "@testing-library/jest-dom", "vite/client"]
   },
-  "include": ["src", "e2e", "smoke", "playwright.config.ts"]
+  "include": ["src", "e2e", "smoke", "playwright.config.ts", "playwright.reference.config.ts"]
 }

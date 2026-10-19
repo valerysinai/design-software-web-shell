@@ -22,6 +22,10 @@ export class HttpSessionDataSource implements SessionDataSource {
     return this.authClient.getMe();
   }
 
+  async login(email: string, password: string): Promise<Me> {
+    return this.authClient.login(email, password);
+  }
+
   async logout(): Promise<void> {
     return this.authClient.logout();
   }

@@ -10,6 +10,7 @@ import { RemoteRoutes } from '../shell/remote/RemoteRoutes';
 import { RequireSession } from '../shell/guards/RequireSession';
 import { OfflineBanner } from '../shell/components/OfflineBanner';
 import { useOnlineStatus } from '../shell/hooks/use-online-status';
+import { LoginPage } from './LoginPage';
 
 export interface ShellRootProps {
   dataSource: SessionDataSource;
@@ -17,6 +18,7 @@ export interface ShellRootProps {
   notificationDataSource?: NotificationDataSource;
   /** Ruta del manifest de remotes del ambiente activo. Se muestra en modo desarrollo. */
   manifestSource?: string;
+  getAccessToken?: () => string | null;
 }
 
 /**
@@ -33,8 +35,9 @@ export const ShellRoot = ({
   remoteRegistry,
   notificationDataSource,
   manifestSource,
+  getAccessToken,
 }: ShellRootProps) => {
-  const { state, logout } = useCurrentUser(dataSource);
+  const { state, logout, reload } = useCurrentUser(dataSource);
 
   // El router es la unica fuente de verdad de la ruta. Mantener un `useState` paralelo
   // con `pushState` manual desincroniza el shell: la URL cambia pero la vista no.
@@ -59,6 +62,13 @@ export const ShellRoot = ({
     return <div role="status">Cargando sesion...</div>;
   }
 
+  if ((state.status === 'unauthenticated' || state.status === 'error') && dataSource.login) {
+    return <LoginPage onLogin={async (email, password) => {
+      await dataSource.login!(email, password);
+      await reload();
+    }} />;
+  }
+
   if (state.status === 'error') {
     return <div role="alert">No se pudo cargar la sesion: {state.error}</div>;
   }
@@ -76,7 +86,8 @@ export const ShellRoot = ({
           {...(notificationDataSource === undefined ? {} : { notificationDataSource })}
         >
           {isOnline ? null : <OfflineBanner />}
-          <RemoteRoutes registry={remoteRegistry} manifestSource={manifestSource} />
+          <RemoteRoutes registry={remoteRegistry} manifestSource={manifestSource}
+            permissions={state.user.features} getAccessToken={getAccessToken} />
         </AppShell>
       )}
     </RequireSession>

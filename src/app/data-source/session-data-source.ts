@@ -13,6 +13,7 @@ export interface SessionDataSource {
   hasSession(): boolean;
   getMe(): Promise<Me>;
   logout(): Promise<void>;
+  login?(email: string, password: string): Promise<Me>;
 }
 
 export const SESSION_SOURCE_ENV = 'VITE_SESSION_SOURCE';

@@ -92,7 +92,9 @@ export default defineConfig(({ mode }) => {
 
   // El shell trabaja con stubs mientras los remotes no estan construidos ni desplegados,
   // o cuando desarrollo pide explicitamente `VITE_REMOTE_SOURCE=mock`.
-  const useStubs = env['VITE_REMOTE_SOURCE'] !== 'federation' || missing.length > 0;
+  const useStubs = env['VITE_REMOTE_SOURCE'] !== 'federation' || Object.keys(manifest).length === 0;
+  const unavailablePath = fileURLToPath(new URL('./src/shell/remote/UnavailableRemote.tsx', import.meta.url));
+  const unavailableAliases = Object.fromEntries(missing.map((name) => [`${name}/App`, unavailablePath]));
 
   if (useStubs) {
     console.warn(
@@ -124,6 +126,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         ...(useStubs ? stubAliasRecord() : {}),
+        ...(!useStubs ? unavailableAliases : {}),
         '@sena/frontend-platform': fileURLToPath(
           new URL('../design-software-frontend-platform/src/index.ts', import.meta.url),
         ),
@@ -145,6 +148,15 @@ export default defineConfig(({ mode }) => {
     server: {
       port: 5000,
       proxy: {
+        '/api/v1/auth': {
+          target: env['IAM_PROXY_TARGET'] || 'http://localhost:8080',
+          changeOrigin: true,
+        },
+        '/reference-api': {
+          target: env['REFERENCE_PROXY_TARGET'] || 'http://localhost:8088',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/reference-api\/api\/v1(?=\/|$)/, ''),
+        },
         '/api/v1': {
           target: 'http://localhost:8080',
           changeOrigin: true,
